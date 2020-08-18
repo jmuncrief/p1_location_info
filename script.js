@@ -1,0 +1,13 @@
+#navigationInput {
+    
+}
+
+
+    
+#contentsFromCall{
+
+}
+
+#buttonPress{
+
+}
