@@ -1,7 +1,7 @@
 
 function getNews(){
 
-        
+
     
     
     let queryURL = "https://newscatcher.p.rapidapi.com/v1/search?media=True&lang=en&q=albuquerque";
@@ -18,23 +18,38 @@ function getNews(){
         }
     }
     $.ajax(settings).done(function (response) {
-        console.log("News: ", response);
+        const articles = response.articles;
+
+        console.log("News: ", articles);
     });
 
 }
 
-getNews();
 
 function getWeather(){
-
     
-    let queryURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?q=phoenix,AZ,US&appid=a646f545e8cb9250179e0c2cd1a2515f"
+    
+    let queryURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?q=albuquerque,NM,US&appid=a646f545e8cb9250179e0c2cd1a2515f"
     
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response){
-        console.log("Weather: ", response)
-    })
+        const city = response.name;
+        const country = response.sys.country;
+        const windSpeed = response.wind.speed;
+        const windDeg = response.wind.deg;
+        const tempCurrent = response.main.temp;
+        const tempMin = response.main.temp_min;
+        const tempMax = response.main.temp_max;
+        const heatIndex = response.main.feels_like;
+        const humidity = response.main.humidity;
 
+        // console.log("Weather: ", response)
+        console.log("Weather: ", "City: " + city + " Country: " + country + " Wind Speed: " + windSpeed + " Wind Direction: " + windDeg + " Current Temperature: " + tempCurrent + " High Temperature: " + tempMax + " Low Temperature: " + tempMin + " Feels Like: " + heatIndex + " Humidity: " + humidity);
+    })
+    
 }
+
+getNews();
+getWeather();
