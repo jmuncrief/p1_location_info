@@ -1,0 +1,23 @@
+*, * ::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: skyblue;
+}
+
+.btn {
+    background: slategray;
+    
+}
+.nav-wrapper {
+    
+    background-color: lightgrey;
+    margin-top: 20px;
+    font-family: 'Varela Round', sans-serif;
+    
+}
+
+.brand-logo {
+    color: black;
+}
