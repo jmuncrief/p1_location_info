@@ -1,6 +1,6 @@
 
 function getNews() {
-
+    // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
 
 
 
@@ -27,6 +27,7 @@ function getNews() {
 
 
 function getWeather() {
+    // API Documentation - https://openweathermap.org/current
 
     // Hard-coded variables stand-in for JQuery selectors to retrieve values from search on page
     const city = "albuquerque";
@@ -75,23 +76,30 @@ function getWeather() {
 }
 
 function getRecd() {
+    // API Documentation - https://ridb.recreation.gov/docs
 
+    // Location search hard-coded into locationURL. Will be replaced with reference to HTML element value
     const apiKey = "e6dcb66a-59d5-4821-9331-2a15534c73e0";
     const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
-    const locationURL = "https://ridb.recreation.gov/api/v1/recareaaddresses?query=arizona&limit=10&offset=0&apikey=";
+    const locationURL = "https://ridb.recreation.gov/api/v1/recareaaddresses?query=nevada&limit=5&offset=0&apikey=";
     const idURL1 = "https://ridb.recreation.gov/api/v1/recareas/"
     const idURL2 = "?full=true&apikey="
 
+    // AJAX call retrieves Rec Area IDs from recreation.gov API based on search criteria (state)
     $.ajax({
         url: corsBypassProxy + locationURL + apiKey,
         method: "GET"
     }).then(function(response) {
+        // console.log(response);
         let idArr = response.RECDATA;
-        // console.log("Rec Areas: ", arr);
+        // console.log("Rec Areas: ", idArr);
+
+        // Iterates through array of rec area objects
         for (i = 0; i < idArr.length; i++) {
             // console.log(idArr[i].RecAreaID);
-            currentID = idArr[i].RecAreaID
+            let currentID = idArr[i].RecAreaID
             
+            // Nested AJAX call takes IDs from parent call and retrieves data about specific rec areas
             $.ajax({
                 url: corsBypassProxy + idURL1 + currentID + idURL2 + apiKey,
                 method: "GET"
@@ -100,15 +108,15 @@ function getRecd() {
                 let recAreaDescription = response.RecAreaDescription;
                 let recAreaPhone = response.RecAreaPhone;
 
-                console.log(response);
-                // console.log("Rec Area Name:", recAreaName);
-                // console.log("Description:", recAreaDescription);
-                // console.log("Phone:", recAreaPhone);
+                // console.log(response);
+                console.log("Rec Area Name:", recAreaName);
+                console.log("Description:", recAreaDescription);
+                console.log("Phone:", recAreaPhone);
             })
         }
     })
 }
 
-// getWeather();
-// getNews();
+getWeather();
+getNews();
 getRecd();
