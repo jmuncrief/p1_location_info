@@ -1,6 +1,18 @@
 // Global Variables
+// 'states' and 'countries' constants prsent in 'lists.js'
 
 
+
+function getInitialsByState(state) { 
+    for (var initials in states) { 
+            if (states[initials] === state.toUpperCase()) 
+            console.log(initials);
+            // return prop; 
+    } 
+} 
+
+getInitialsByState("montana");
+console.log(states.HI);
 
 function getNews() {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
@@ -120,6 +132,6 @@ function getRecd() {
     })
 }
 
-getWeather();
-getNews();
-getRecd();
+// getWeather();
+// getNews();
+// getRecd();
