@@ -27,9 +27,28 @@ function getNews(){
 
 
 function getWeather(){
-    
-    
-    let queryURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?q=albuquerque,NM,US&appid=a646f545e8cb9250179e0c2cd1a2515f"
+
+    // Hard-coded variables stand-in for JQuery selectors to retrieve values from search on page
+    const city = "albuquerque";
+    const stateCode = "NM";
+    const countryCode = "US";
+
+    // searchTerm format (no curly braces): {city},{state code (optional)},{country code (optional)}
+    let searchTerm = "";
+    // Block of statements builds searchTerm based on presence of state and country codes; defaults to city only
+        if (stateCode && countryCode) {
+        searchTerm = city + "," + stateCode + "," + countryCode;
+        } else if (stateCode && !countryCode) {
+            searchTerm = city + "," + stateCode
+        } else if (!stateCode && countryCode) {
+            searchTerm = city + "," + countryCode
+        } else {
+            searchTerm = city
+        }
+
+    const apiKey = "a646f545e8cb9250179e0c2cd1a2515f";
+    const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
+    const queryURL = corsBypassProxy + "api.openweathermap.org/data/2.5/weather?q=" + searchTerm + "&appid=" + apiKey;
     
     $.ajax({
         url: queryURL,
