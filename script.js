@@ -1,13 +1,9 @@
-#navigationInput {
-    
-}
 
+//   document.addEventListener('DOMContentLoaded', function() {
+//     var elems = document.querySelectorAll('.dropdown-trigger');
+//     var instances = M.Dropdown.init(elems, options);
+//   });
 
-    
-#contentsFromCall{
+  // Or with jQuery
 
-}
-
-#buttonPress{
-
-}
+  $('.dropdown-trigger').dropdown();

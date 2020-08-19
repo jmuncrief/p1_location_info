@@ -12,16 +12,16 @@ nav {
 
 /* for the sticky footer */
 body {
-  display: flex;
+  /* display: flex;
   min-height: 100vh;
-  flex-direction: column;
+  flex-direction: column; */
   border-width: 5%;
   border-style: double;
 }
 
-main {
+/* main {
   flex: 1 0 auto;
-}
+} */
 
 h5 {
   padding: 5%;
@@ -34,10 +34,16 @@ footer {
   border-style: double;
 }
 
+image {
+margin-left : 3%;
+}
+
 .container {
+
 }
 
 #navigationInput {
+
 }
 
 #contentsFromCall {
@@ -45,4 +51,5 @@ footer {
 }
 
 #buttonPress {
+
 }
