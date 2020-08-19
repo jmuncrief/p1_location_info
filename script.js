@@ -1,3 +1,6 @@
+// Global Variables
+
+
 
 function getNews() {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
