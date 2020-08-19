@@ -59,8 +59,12 @@ function getWeather(){
         const windSpeed = response.wind.speed;
         const windDeg = response.wind.deg;
         const tempCurrent = response.main.temp;
-        const tempMin = response.main.temp_min;
-        const tempMax = response.main.temp_max;
+        const tempMinK = response.main.temp_min;
+        const tempMaxK = response.main.temp_max;
+        const tempMinC = (parseInt(response.main.temp_min)) - 273.15;
+        const tempMaxC = (parseInt(response.main.temp_max)) - 273.15;
+        const tempMinF = ((response.main.temp_min) * (9 / 5)) + 32;
+        const tempMaxF = ((response.main.temp_max) * (9 / 5)) + 32;
         const heatIndex = response.main.feels_like;
         const humidity = response.main.humidity;
 
