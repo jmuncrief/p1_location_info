@@ -6,13 +6,14 @@
 function getInitialsByState(state) { 
     for (var initials in states) { 
             if (states[initials] === state.toUpperCase()) 
-            console.log(initials);
-            // return prop; 
+            return initials; 
     } 
 } 
 
-getInitialsByState("montana");
-console.log(states.HI);
+for (var inits in states) {
+    console.log(inits);
+}
+
 
 function getNews() {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653

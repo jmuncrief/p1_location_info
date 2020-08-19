@@ -7,7 +7,6 @@ const states = {
 	'CO':'COLORADO',
 	'CT':'CONNECTICUT',
 	'DE':'DELAWARE',
-	'DC':'DISTRICT OF COLUMBIA',
 	'FL':'FLORIDA',
 	'GA':'GEORGIA',
 	'HI':'HAWAII',
