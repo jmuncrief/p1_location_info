@@ -24,7 +24,7 @@ function populateDropdown() {
 
 function startSearch() {
     let txt = input.val();
-    let state = stateBtn.text();
+    let state = stateBtn.val();
     console.log(txt);
     console.log(state);
 
