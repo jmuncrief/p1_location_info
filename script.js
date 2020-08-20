@@ -7,10 +7,14 @@ const stateBtn = $("#dropdown1");
 $(document).ready(function() {
     populateDropdown();
 })
+// $('.dropdown-trigger').dropdown()
+$(document).ready(function(){
+    $('select').formSelect();
+  });
 
 function populateDropdown() {
     for (var prop in states) {
-        let x = $("<li>").text(states[prop]);
+        let x = $("<option>").text(states[prop]);
         x.addClass("dropdown-style");
         x.attr("value", states[prop]);
         stateBtn.append(x);
@@ -219,7 +223,7 @@ getWeather();
 
   // Or with jQuery
 
-  $('.dropdown-trigger').dropdown();
+  
 
 
   searchBtn.on("click", function(e){
