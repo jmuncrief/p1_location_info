@@ -1,40 +1,22 @@
 // Global Variables
 // 'states' and 'countries' constants prsent in 'lists.js'
-
-
-
-function getInitialsByState(state) { 
-    for (var initials in states) { 
-            if (states[initials] === state.toUpperCase()) 
-            return initials; 
-    } 
-} 
-
-for (var inits in states) {
-    // console.log(inits);
-}
-
 const input = $("#textarea2");
 const searchBtn = $("#search");
 const stateBtn = $("#dropdown1");
 
-
-$(document).ready(function(){
+$(document).ready(function() {
     populateDropdown();
-    
-    
 })
+
 function populateDropdown() {
-               for(var prop in states) {
-                //    console.log(states[prop]);
-                let x = $("<option>").text(states[prop]);
-                x.addClass("dropdown-style");
-                stateBtn.append(x);
-               }
-           }
-
-
-
+    for (var prop in states) {
+        let x = $("<li>").text(states[prop]);
+        x.addClass("dropdown-style");
+        x.attr("value", states[prop]);
+        stateBtn.append(x);
+    }
+    
+}
 
 function startSearch() {
     let txt = input.val();
@@ -44,13 +26,16 @@ function startSearch() {
 
 }
 
+function getInitialsByState(state) { 
+    for (var initials in states) { 
+            if (states[initials] === state.toUpperCase()) 
+            return initials; 
+    } 
+} 
 
-function startSearch(state) {
-    for (var initials in states) {
-        if (states[initials] === state.toUpperCase())
-        return initials;
-    }
-}
+// for (var inits in states) {
+//     console.log(inits);
+// }
 
 function getNews() {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
@@ -73,7 +58,7 @@ function getNews() {
     $.ajax(settings).done(function (response) {
         const articles = response.articles;
 
-        console.log("News: ", articles);
+        // console.log("News: ", articles);
     });
 
 }
@@ -123,7 +108,7 @@ function getWeather() {
         const humidity = response.main.humidity;
 
         // console.log("Weather: ", response)
-        console.log("Weather: ", "City: " + city + " Country: " + country + " Wind Speed: " + windSpeed + " Wind Direction: " + windDeg + " Current Temperature: " + tempCurrent + " High Temperature: " + tempMaxF + " Low Temperature: " + tempMinF + " Feels Like: " + heatIndex + " Humidity: " + humidity);
+        // console.log("Weather: ", "City: " + city + " Country: " + country + " Wind Speed: " + windSpeed + " Wind Direction: " + windDeg + " Current Temperature: " + tempCurrent + " High Temperature: " + tempMaxF + " Low Temperature: " + tempMinF + " Feels Like: " + heatIndex + " Humidity: " + humidity);
     })
 
 }
@@ -162,9 +147,9 @@ function getRecd() {
                 let recAreaPhone = response.RecAreaPhone;
 
                 // console.log(response);
-                console.log("Rec Area Name:", recAreaName);
-                console.log("Description:", recAreaDescription);
-                console.log("Phone:", recAreaPhone);
+                // console.log("Rec Area Name:", recAreaName);
+                // console.log("Description:", recAreaDescription);
+                // console.log("Phone:", recAreaPhone);
             })
         }
     })
@@ -206,13 +191,7 @@ getWeather();
 
 // let searchButton = document.getElementById('search-btn')
 
-// function getNews(){
 
-
-    
-    
-//     let queryURL = "https://newscatcher.p.rapidapi.com/v1/search?media=True&lang=en&q=albuquerque";
-    
 //     // Object passes paramaters into AJAX call to Newscatcher
 //     let settings = {
 //         "async": true,
@@ -240,9 +219,10 @@ getWeather();
 
   // Or with jQuery
 
-  $('.dropdown-trigger').dropdown()
+  $('.dropdown-trigger').dropdown();
+
 
   searchBtn.on("click", function(e){
-      e.preventDefault
+      e.preventDefault();
+      startSearch();
   })
-   
