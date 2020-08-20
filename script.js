@@ -10,7 +10,7 @@ $(document).ready(function() {
 
 function populateDropdown() {
     for (var prop in states) {
-        let x = $("<li>").text(states[prop]);
+        let x = $("<option>").text(states[prop]);
         x.addClass("dropdown-style");
         x.attr("value", states[prop]);
         stateBtn.append(x);
