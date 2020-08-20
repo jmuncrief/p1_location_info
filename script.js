@@ -11,9 +11,46 @@ function getInitialsByState(state) {
 } 
 
 for (var inits in states) {
-    console.log(inits);
+    // console.log(inits);
 }
 
+const input = $("#textarea2");
+const searchBtn = $("#search");
+const stateBtn = $("#dropdown1");
+
+
+$(document).ready(function(){
+    populateDropdown();
+    
+    
+})
+function populateDropdown() {
+               for(var prop in states) {
+                //    console.log(states[prop]);
+                let x = $("<option>").text(states[prop]);
+                x.addClass("dropdown-style");
+                stateBtn.append(x);
+               }
+           }
+
+
+
+
+function startSearch() {
+    let txt = input.val();
+    let state = stateBtn.text();
+    console.log(txt);
+    console.log(state);
+
+}
+
+
+function startSearch(state) {
+    for (var initials in states) {
+        if (states[initials] === state.toUpperCase())
+        return initials;
+    }
+}
 
 function getNews() {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
@@ -133,9 +170,33 @@ function getRecd() {
     })
 }
 
-// getWeather();
+getNews();
+getWeather(); 
+
+
+function getRestaurant(){ 
+    const apiKey = "c856e1da1a9c81fb77e457de7e16c942";
+    const locationURL = "https://developers.zomato.com/api/v2.1/locations?query=phoenix"; 
+    //const locationDetailURL = "https://developers.zomato.com/api/v2.1/location_details?entity_id=301&entity_type=city";  
+
+    $.ajax({ 
+        url: locationURL, 
+        method: "GET" 
+    }) 
+    .then(function(response){ 
+        console.log(locationURL);
+
+
+
+    })
+
+
+}
+
 // getNews();
-// getRecd();
+getWeather();
+
+
 
 // when user searches city name
 
@@ -170,66 +231,6 @@ function getRecd() {
         //     });
         
         // }
-        
-        $('.dropdown-trigger').dropdown(); 
-
-function getWeather(){
-
-    // Hard-coded variables stand-in for JQuery selectors to retrieve values from search on page
-    const city = "albuquerque";
-    const stateCode = "NM";
-    const countryCode = "US";
-
-    // searchTerm format (no curly braces): {city},{state code (optional)},{country code (optional)}
-    let searchTerm = "";
-    // Block of statements builds searchTerm based on presence of state and country codes; defaults to city only
-        if (stateCode && countryCode) {
-        searchTerm = city + "," + stateCode + "," + countryCode;
-        } else if (stateCode && !countryCode) {
-            searchTerm = city + "," + stateCode
-        } else if (!stateCode && countryCode) {
-            searchTerm = city + "," + countryCode
-        } else {
-            searchTerm = city
-        }
-
-    const apiKey = "a646f545e8cb9250179e0c2cd1a2515f";
-    const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
-    const queryURL = corsBypassProxy + "api.openweathermap.org/data/2.5/weather?q=" + searchTerm + "&appid=" + apiKey;
-    
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response){
-        const city = response.name;
-        const country = response.sys.country;
-        const windSpeed = response.wind.speed;
-        const windDeg = response.wind.deg;
-        const tempCurrent = response.main.temp;
-        const tempMinK = response.main.temp_min;
-        const tempMaxK = response.main.temp_max;
-        const tempMinC = (parseInt(response.main.temp_min)) - 273.15;
-        const tempMaxC = (parseInt(response.main.temp_max)) - 273.15;
-        const tempMinF = ((response.main.temp_min) * (9 / 5)) + 32;
-        const tempMaxF = ((response.main.temp_max) * (9 / 5)) + 32;
-        const heatIndex = response.main.feels_like;
-        const humidity = response.main.humidity;
-
-        // console.log("Weather: ", response)
-        console.log("Weather: ", "City: " + city + " Country: " + country + " Wind Speed: " + windSpeed + " Wind Direction: " + windDeg + " Current Temperature: " + tempCurrent + " High Temperature: " + tempMaxF + " Low Temperature: " + tempMinF + " Feels Like: " + heatIndex + " Humidity: " + humidity);
-        
-    })
-
-    
-}
-
-
-// getNews();
-getWeather();
-
-$("p").append(getWeather, function(){
-    
-})
 
 
 //   document.addEventListener('DOMContentLoaded', function() {
@@ -239,4 +240,9 @@ $("p").append(getWeather, function(){
 
   // Or with jQuery
 
-  $('.dropdown-trigger').dropdown();
+  $('.dropdown-trigger').dropdown()
+
+  searchBtn.on("click", function(e){
+      e.preventDefault
+  })
+   
