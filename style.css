@@ -20,6 +20,7 @@ body {
 }
 .header {
   font-family: 'Varela Round', sans-serif;
+  margin-left: 5%;
 }
 
 /* main {
@@ -35,11 +36,11 @@ h5 {
   font-family: 'Varela Round', sans-serif;
   text-shadow: 2px 2px black;
 }
-
-.dropdown-content > li {
-  color: black;
+.card {
+  justify-content: center;
+  margin-left: 2.5%;
+  margin-right: 5%;
 }
-
 footer {
   height: 10%;
   width: 100%;
