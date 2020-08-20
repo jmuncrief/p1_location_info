@@ -10,6 +10,10 @@ nav {
   border-style: double;
 }
 
+#dropdown-style {
+  margin: auto;
+}
+
 /* for the sticky footer */
 body {
   /* display: flex;
@@ -18,26 +22,13 @@ body {
   border-width: 5%;
   border-style: double;
 }
-.header {
-  font-family: 'Varela Round', sans-serif;
-}
 
 /* main {
   flex: 1 0 auto;
 } */
-h1 {
-  text-shadow: 3px 3px black;
-  text-decoration: underline;
-  font-family: 'Varela Round', sans-serif;
-}
 
 h5 {
-  font-family: 'Varela Round', sans-serif;
-  text-shadow: 2px 2px black;
-}
-
-.dropdown-content > li {
-  color: black;
+  padding: 5%;
 }
 
 footer {
@@ -46,23 +37,13 @@ footer {
   border-width: 5%;
   border-style: double;
 }
-.white-text{
-  text-decoration: underline;
-  text-decoration-color: yellow;
-}
-.card-action {
-  
-}
 
 image {
 margin-left : 3%;
 }
 
-.container {
 
-}
-
-#navigationInput {
+/* #navigationInput {
 
 }
 
@@ -72,4 +53,4 @@ margin-left : 3%;
 
 #buttonPress {
 
-}
+} */
