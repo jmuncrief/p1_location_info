@@ -26,12 +26,13 @@ function startSearch() {
 
 }
 
-function getInitialsByState(state) { 
-    for (var initials in states) { 
-            if (states[initials] === state.toUpperCase()) 
-            return initials; 
-    } 
-} 
+
+function getInitialsByState(state) {
+    for (var initials in states) {
+        if (states[initials] === state.toUpperCase())
+            return initials;
+    }
+}
 
 // for (var inits in states) {
 //     console.log(inits);
@@ -127,7 +128,7 @@ function getRecd() {
     $.ajax({
         url: corsBypassProxy + locationURL + apiKey,
         method: "GET"
-    }).then(function(response) {
+    }).then(function (response) {
         // console.log(response);
         let idArr = response.RECDATA;
         // console.log("Rec Areas: ", idArr);
@@ -136,12 +137,12 @@ function getRecd() {
         for (i = 0; i < idArr.length; i++) {
             // console.log(idArr[i].RecAreaID);
             let currentID = idArr[i].RecAreaID
-            
+
             // Nested AJAX call takes IDs from parent call and retrieves data about specific rec areas
             $.ajax({
                 url: corsBypassProxy + idURL1 + currentID + idURL2 + apiKey,
                 method: "GET"
-            }).then(function(response) {
+            }).then(function (response) {
                 let recAreaName = response.RecAreaName;
                 let recAreaDescription = response.RecAreaDescription;
                 let recAreaPhone = response.RecAreaPhone;
@@ -156,36 +157,62 @@ function getRecd() {
 }
 
 getNews();
-getWeather(); 
+getWeather();
 
 
-function getRestaurant(){ 
-    const apiKey = "c856e1da1a9c81fb77e457de7e16c942";
-    const locationURL = "https://developers.zomato.com/api/v2.1/locations?query=phoenix"; 
-    //const locationDetailURL = "https://developers.zomato.com/api/v2.1/location_details?entity_id=301&entity_type=city";  
+function getRestaurant() { 
+    //API documentation - https://developers.zomato.com/documentation#!/restaurant/restaurant_0 
+    const apiKey = "c856e1da1a9c81fb77e457de7e16c942"; 
+    const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
+    const locationURL = "https://developers.zomato.com/api/v2.1/cities?q=phoenix";
+    const locationDetailURL = "https://developers.zomato.com/api/v2.1/location_details?entity_id=301&entity_type=city";  
 
-    $.ajax({ 
-        url: locationURL, 
-        method: "GET" 
-    }) 
-    .then(function(response){ 
-        console.log(locationURL);
-
-
-
+    $.ajax({
+        url: corsBypassProxy + locationURL + apiKey,
+        method: "GET"
     })
+        .then(function (response) {
+            console.log(locationURL);
 
 
+
+        })
 
 
 }
 
-// getNews();
-getWeather();
+$("p").append(getWeather, function () {
 
-$("p").append(getWeather, function(){
-    
 })
+
+
+// when user searches city name
+
+// return card with city, headlines, crime data, weather
+
+// hide cards till search 
+
+// let searchButton = document.getElementById('search-btn')
+
+
+//     // Object passes paramaters into AJAX call to Newscatcher
+//     let settings = {
+//         "async": true,
+//         "crossDomain": true,
+//         "url": queryURL,
+//         "method": "GET",
+//         "headers": {
+    //             "x-rapidapi-host": "newscatcher.p.rapidapi.com",
+    //             "x-rapidapi-key": "e8b4a0ee00msh67c0789ad94f323p1e149djsn74ac17606489"
+    //         }
+    //     }
+    //     $.ajax(settings).done(function (response) {
+        //         const articles = response.articles;
+        
+        //         console.log("News: ", articles);
+        //     });
+        
+        // }
 
 
 //   document.addEventListener('DOMContentLoaded', function() {
@@ -193,7 +220,7 @@ $("p").append(getWeather, function(){
 //     var instances = M.Dropdown.init(elems, options);
 //   });
 
-  // Or with jQuery
+// Or with jQuery
 
   $('.dropdown-trigger').dropdown();
 

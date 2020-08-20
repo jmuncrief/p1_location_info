@@ -18,13 +18,26 @@ body {
   border-width: 5%;
   border-style: double;
 }
+.header {
+  font-family: 'Varela Round', sans-serif;
+}
 
 /* main {
   flex: 1 0 auto;
 } */
+h1 {
+  text-shadow: 3px 3px black;
+  text-decoration: underline;
+  font-family: 'Varela Round', sans-serif;
+}
 
 h5 {
-  padding: 5%;
+  font-family: 'Varela Round', sans-serif;
+  text-shadow: 2px 2px black;
+}
+
+.dropdown-content > li {
+  color: black;
 }
 
 footer {
@@ -32,6 +45,13 @@ footer {
   width: 100%;
   border-width: 5%;
   border-style: double;
+}
+.white-text{
+  text-decoration: underline;
+  text-decoration-color: yellow;
+}
+.card-action {
+  
 }
 
 image {
