@@ -176,16 +176,40 @@ function getRestaurant(){
     })
 
 
-
-
 }
 
 // getNews();
 getWeather();
 
-$("p").append(getWeather, function(){
-    
-})
+
+
+// when user searches city name
+
+// return card with city, headlines, crime data, weather
+
+// hide cards till search 
+
+// let searchButton = document.getElementById('search-btn')
+
+
+//     // Object passes paramaters into AJAX call to Newscatcher
+//     let settings = {
+//         "async": true,
+//         "crossDomain": true,
+//         "url": queryURL,
+//         "method": "GET",
+//         "headers": {
+    //             "x-rapidapi-host": "newscatcher.p.rapidapi.com",
+    //             "x-rapidapi-key": "e8b4a0ee00msh67c0789ad94f323p1e149djsn74ac17606489"
+    //         }
+    //     }
+    //     $.ajax(settings).done(function (response) {
+        //         const articles = response.articles;
+        
+        //         console.log("News: ", articles);
+        //     });
+        
+        // }
 
 
 //   document.addEventListener('DOMContentLoaded', function() {
