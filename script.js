@@ -6,11 +6,8 @@ const stateBtn = $("#dropdown1");
 
 $(document).ready(function() {
     populateDropdown();
-})
-// $('.dropdown-trigger').dropdown()
-$(document).ready(function(){
     $('select').formSelect();
-  });
+})
 
 function populateDropdown() {
     for (var prop in states) {
@@ -24,11 +21,14 @@ function populateDropdown() {
 
 function startSearch() {
     let txt = input.val();
-    let state = stateBtn.text();
-    console.log(txt);
-    console.log(state);
+    let state = stateBtn.val();
+
+    // getWeather(txt, state);
+    // getRecd(state);
+    getNews(txt);
 
 }
+
 
 function getInitialsByState(state) {
     for (var initials in states) {
@@ -41,12 +41,12 @@ function getInitialsByState(state) {
 //     console.log(inits);
 // }
 
-function getNews() {
+function getNews(city) {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
 
 
 
-    let queryURL = "https://newscatcher.p.rapidapi.com/v1/search?media=True&lang=en&q=albuquerque";
+    let queryURL = "https://newscatcher.p.rapidapi.com/v1/search?media=True&lang=en&q=" + city;
 
     // Object passes paramaters into AJAX call to Newscatcher
     let settings = {
@@ -63,17 +63,24 @@ function getNews() {
         const articles = response.articles;
 
         // console.log("News: ", articles);
+
+        for (let i = 0; i < articles.length; i++) {
+            let articleTitle = articles[i].title;
+            let articleLink = articles[i].link;
+            console.log(articleTitle);
+            console.log(articleLink);
+        }
     });
 
 }
 
 
-function getWeather() {
+function getWeather(cityIn, state) {
     // API Documentation - https://openweathermap.org/current
 
     // Hard-coded variables stand-in for JQuery selectors to retrieve values from search on page
-    const city = "albuquerque";
-    const stateCode = "NM";
+    const city = cityIn;
+    const stateCode = getInitialsByState(state);
     const countryCode = "US";
 
     // searchTerm format (no curly braces): {city},{state code (optional)},{country code (optional)}
@@ -112,18 +119,18 @@ function getWeather() {
         const humidity = response.main.humidity;
 
         // console.log("Weather: ", response)
-        // console.log("Weather: ", "City: " + city + " Country: " + country + " Wind Speed: " + windSpeed + " Wind Direction: " + windDeg + " Current Temperature: " + tempCurrent + " High Temperature: " + tempMaxF + " Low Temperature: " + tempMinF + " Feels Like: " + heatIndex + " Humidity: " + humidity);
+        console.log("Weather: ", "City: " + city + " Country: " + country + " Wind Speed: " + windSpeed + " Wind Direction: " + windDeg + " Current Temperature: " + tempCurrent + " High Temperature: " + tempMaxF + " Low Temperature: " + tempMinF + " Feels Like: " + heatIndex + " Humidity: " + humidity);
     })
 
 }
 
-function getRecd() {
+function getRecd(searchTerm) {
     // API Documentation - https://ridb.recreation.gov/docs
 
     // Location search hard-coded into locationURL. Will be replaced with reference to HTML element value
     const apiKey = "e6dcb66a-59d5-4821-9331-2a15534c73e0";
     const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
-    const locationURL = "https://ridb.recreation.gov/api/v1/recareaaddresses?query=nevada&limit=5&offset=0&apikey=";
+    const locationURL = "https://ridb.recreation.gov/api/v1/recareaaddresses?query=" + searchTerm + "&limit=5&offset=0&apikey=";
     const idURL1 = "https://ridb.recreation.gov/api/v1/recareas/"
     const idURL2 = "?full=true&apikey="
 
@@ -151,16 +158,13 @@ function getRecd() {
                 let recAreaPhone = response.RecAreaPhone;
 
                 // console.log(response);
-                // console.log("Rec Area Name:", recAreaName);
-                // console.log("Description:", recAreaDescription);
-                // console.log("Phone:", recAreaPhone);
+                console.log("Rec Area Name:", recAreaName);
+                console.log("Description:", recAreaDescription);
+                console.log("Phone:", recAreaPhone);
             })
         }
     })
 }
-
-getNews();
-getWeather();
 
 
 function getRestaurant() { 
@@ -183,13 +187,6 @@ function getRestaurant() {
 
 
 }
-
-// getNews();
-getWeather();
-
-$("p").append(getWeather, function () {
-
-})
 
 
 // when user searches city name
