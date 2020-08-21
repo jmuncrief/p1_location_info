@@ -47,13 +47,11 @@ function startSearch() {
 
 }
 
-
 function getInitialsByState(state) {
     for (var initials in states) {
         if (states[initials] === state.toUpperCase()) return initials;
     }
 }
-
 
 function genNewsAjax(city) {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
@@ -76,7 +74,6 @@ function genNewsAjax(city) {
     return $.ajax(settings);
 }
 
-
 function processNewsData(response) {
     const articles = response.articles;
 
@@ -96,6 +93,7 @@ function processNewsData(response) {
     }
 
     return (newsObj);
+
 }
 
 
@@ -211,15 +209,14 @@ function processRecData(response) {
     }
 
     let recObj = {
-        names:recNameArr,
-        descriptions:recDescArr,
-        phones:recPhoneArr
+        names: recNameArr,
+        descriptions: recDescArr,
+        phones: recPhoneArr
     }
 
-    return(recObj);
+    return (recObj);
 
 }
-
 
 function getRestaurant() {
     //API documentation - https://developers.zomato.com/documentation#!/restaurant/restaurant_0
