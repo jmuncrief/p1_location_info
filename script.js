@@ -23,7 +23,7 @@ function startSearch() {
     let txt = input.val();
     let state = stateBtn.val();
 
-    // getWeather(txt, state);
+    getWeather(txt, state);
     // getRecd(state);
     getNews(txt);
 
@@ -108,13 +108,15 @@ function getWeather(cityIn, state) {
         const country = response.sys.country;
         const windSpeed = response.wind.speed;
         const windDeg = response.wind.deg;
-        const tempCurrent = response.main.temp;
+        const tempCurrentK = response.main.temp;
         const tempMinK = response.main.temp_min;
         const tempMaxK = response.main.temp_max;
+        const tempCurrentC = (parseInt(tempCurrentK)) - 273.15;
         const tempMinC = (parseInt(response.main.temp_min)) - 273.15;
         const tempMaxC = (parseInt(response.main.temp_max)) - 273.15;
-        const tempMinF = ((response.main.temp_min) * (9 / 5)) + 32;
-        const tempMaxF = ((response.main.temp_max) * (9 / 5)) + 32;
+        const tempCurrentF = (tempCurrentC * 1.8) + 32;
+        const tempMinF = (tempMinC * 1.8) + 32;
+        const tempMaxF = (tempMaxC * 1.8) + 32;
         const heatIndex = response.main.feels_like;
         const humidity = response.main.humidity;
 
