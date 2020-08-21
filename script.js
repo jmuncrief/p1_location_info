@@ -78,7 +78,6 @@ function genNewsAjax(city) {
     return $.ajax(settings);
 }
 
-<
 function processNewsData(response) {
     const articles = response.articles;
 
