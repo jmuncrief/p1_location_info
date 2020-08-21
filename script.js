@@ -33,10 +33,16 @@ function startSearch() {
                 // Rec Data
                 const recData = response.map((item) => item[0]);
                 // We now have access to all the data we need from this point forward
-                processWeatherData(weather[0])
-                processNewsData(news[0]);
 
-                console.log(weather, news, recData);
+                let wData = processWeatherData(weather[0]);
+                let nData = processNewsData(news[0]);
+                let rData = processRecData(recData);
+
+                console.log(wData);
+                console.log(nData);
+                console.log(rData);
+
+
             });
         }
     );
@@ -72,18 +78,27 @@ function genNewsAjax(city) {
     return $.ajax(settings);
 }
 
-
+<
 function processNewsData(response) {
     const articles = response.articles;
 
-        // console.log("News: ", articles);
+    let titleArr = [];
+    let linkArr = [];
 
-        for (let i = 0; i < articles.length; i++) {
-            let articleTitle = articles[i].title;
-            let articleLink = articles[i].link;
-            console.log(articleTitle);
-            console.log(articleLink);
-        }
+    for (let i = 0; i < articles.length; i++) {
+        let articleTitle = articles[i].title;
+        let articleLink = articles[i].link;
+
+        titleArr.push(articleTitle);
+        linkArr.push(articleLink);
+    }
+    let newsObj = {
+        titles: titleArr,
+        links: linkArr
+    }
+
+    return (newsObj);
+
 }
 
 
@@ -186,23 +201,26 @@ function genRecChildAjax(id) {
     });
 }
 
+function processRecData(response) {
 
-function processRecdData(response) {
-    // console.log(response);
-    let idArr = response.RECDATA;
-    // console.log("Rec Areas: ", idArr);
+    let recNameArr = [];
+    let recDescArr = [];
+    let recPhoneArr = [];
 
-    // Iterates through array of rec area objects
-    for (i = 0; i < idArr.length; i++) {
-        // console.log(idArr[i].RecAreaID);
-        let currentID = idArr[i].RecAreaID;
-
-        // Nested AJAX call takes IDs from parent call and retrieves data about specific rec areas
-        $.ajax({
-            url: corsBypassProxy + idURL1 + currentID + idURL2 + apiKey,
-            method: "GET",
-        }).then();
+    for (var i = 0; i < response.length; i++) {
+        recNameArr.push(response[i].RecAreaName);
+        recDescArr.push(response[i].RecAreaDescription);
+        recPhoneArr.push(response[i].RecAreaPhone);
     }
+
+    let recObj = {
+        names:recNameArr,
+        descriptions:recDescArr,
+        phones:recPhoneArr
+    }
+
+    return(recObj);
+
 }
 
 function getRestaurant() {
