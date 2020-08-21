@@ -6,6 +6,7 @@ const stateBtn = $("#dropdown1");
 
 $(document).ready(function () {
     populateDropdown();
+
     $("select").formSelect();
 });
 
@@ -43,7 +44,9 @@ function startSearch() {
             });
         }
     );
+
 }
+
 
 function getInitialsByState(state) {
     for (var initials in states) {
@@ -51,11 +54,13 @@ function getInitialsByState(state) {
     }
 }
 
+
 function genNewsAjax(city) {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
 
     let queryURL =
         "https://newscatcher.p.rapidapi.com/v1/search?media=True&lang=en&q=" + city;
+
 
     // Object passes paramaters into AJAX call to Newscatcher
     let settings = {
@@ -70,6 +75,7 @@ function genNewsAjax(city) {
     };
     return $.ajax(settings);
 }
+
 
 function processNewsData(response) {
     const articles = response.articles;
@@ -92,7 +98,9 @@ function processNewsData(response) {
     return (newsObj);
 }
 
+
 function genWeatherAjax(cityIn, state) {
+
     // API Documentation - https://openweathermap.org/current
 
     // Hard-coded variables stand-in for JQuery selectors to retrieve values from search on page
@@ -157,7 +165,9 @@ function processWeatherData(response) {
     return weatherObj;
 }
 
+
 function genRecAjax(searchTerm) {
+
     // API Documentation - https://ridb.recreation.gov/docs
 
     // Location search hard-coded into locationURL. Will be replaced with reference to HTML element value
@@ -167,6 +177,7 @@ function genRecAjax(searchTerm) {
         "https://ridb.recreation.gov/api/v1/recareaaddresses?query=" +
         searchTerm +
         "&limit=5&offset=0&apikey=";
+
 
     // AJAX call retrieves Rec Area IDs from recreation.gov API based on search criteria (state)
     return $.ajax({
@@ -230,3 +241,4 @@ searchBtn.on("click", function (e) {
     e.preventDefault();
     startSearch();
 });
+
