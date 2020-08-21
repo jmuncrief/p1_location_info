@@ -39,12 +39,20 @@ footer {
 }
 
 image {
-margin-left : 3%;
+  margin-left: 3%;
+}
+.white-text {
+  text-decoration: underline;
+  text-decoration-color: yellow;
 }
 
+h1 {
+  text-shadow: 3px 3px black;
+  text-decoration: underline;
+  font-family: "Varela round", sans-serif;
+}
 
-/* #navigationInput {
-
+#navigationInput {
 }
 
 #contentsFromCall {
@@ -52,5 +60,4 @@ margin-left : 3%;
 }
 
 #buttonPress {
-
-} */
+}
