@@ -33,6 +33,7 @@ function startSearch() {
                 // Rec Data
                 const recData = response.map((item) => item[0]);
                 // We now have access to all the data we need from this point forward
+
                 let wData = processWeatherData(weather[0]);
                 let nData = processNewsData(news[0]);
                 let rData = processRecData(recData);
@@ -40,6 +41,7 @@ function startSearch() {
                 console.log(wData);
                 console.log(nData);
                 console.log(rData);
+
 
             });
         }
@@ -76,7 +78,7 @@ function genNewsAjax(city) {
     return $.ajax(settings);
 }
 
-
+<
 function processNewsData(response) {
     const articles = response.articles;
 
@@ -96,6 +98,7 @@ function processNewsData(response) {
     }
 
     return (newsObj);
+
 }
 
 
@@ -219,7 +222,6 @@ function processRecData(response) {
     return(recObj);
 
 }
-
 
 function getRestaurant() {
     //API documentation - https://developers.zomato.com/documentation#!/restaurant/restaurant_0
