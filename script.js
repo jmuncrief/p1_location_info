@@ -224,6 +224,5 @@ function getRestaurant() {
 searchBtn.on("click", function (e) {
     e.preventDefault();
     startSearch(); 
-    
 });
 
