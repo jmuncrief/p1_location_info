@@ -22,6 +22,7 @@ function populateDropdown() {
 function startSearch() {
     let txt = input.val();
     let state = stateBtn.val();
+    let stateInits = getInitialsByState(state);
 
     $.when(genWeatherAjax(txt, state), genNewsAjax(txt), genRecAjax(state)).then(
         function (weather, news, rec) {
@@ -41,6 +42,22 @@ function startSearch() {
                 console.log(nData);
                 console.log(rData);
 
+                // Build/populate card here
+                txt = titleCase(txt);
+                $("#card-name").text(txt + ", " + stateInits);
+                $("#card-content").append($("<p>").text("Temperature: " + wData.temperature + " | Wind Speed: " + wData.windSpeed + " | Humidity: " + wData.humidity + " |"));
+                $("#card-content").append($("<hr>"))
+                for (var i = 0; i < nData.titles.length; i++) {
+                    $("#card-content").append($("<a>").attr("href", nData.links[i]).text(nData.titles[i]))
+                    $("#card-content").append($("<br>"))
+                }
+                $("#card-content").append($("<hr>"))
+                $("#card-content").append($("<p>").text("Recreation Areas Nearby:"))
+                  for (var i = 0; i < rData.names.length; i++){  
+                    $("#card-content").append($("<p>").text(rData.names[i] + " | " + rData.phones[i] + " |"))
+                }
+
+                $("#card-body").attr("style", "display: block");
             });
         }
     );
@@ -51,6 +68,15 @@ function getInitialsByState(state) {
     for (var initials in states) {
         if (states[initials] === state.toUpperCase()) return initials;
     }
+}
+
+function titleCase (word) {
+    let firstLetter = word[0];
+    let capLetter = firstLetter.toUpperCase();
+    let wordEnd = word.slice(1).toLowerCase();
+    let capWord = capLetter + wordEnd;
+
+    return(capWord);
 }
 
 function genNewsAjax(city) {
