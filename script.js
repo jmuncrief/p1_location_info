@@ -22,6 +22,7 @@ function populateDropdown() {
 function startSearch() {
     let txt = input.val();
     let state = stateBtn.val();
+    let stateInits = getInitialsByState(state);
 
     $.when(genWeatherAjax(txt, state), genNewsAjax(txt), genRecAjax(state)).then(
         function (weather, news, rec) {
@@ -33,7 +34,6 @@ function startSearch() {
                 // Rec Data
                 const recData = response.map((item) => item[0]);
                 // We now have access to all the data we need from this point forward
-
                 let wData = processWeatherData(weather[0]);
                 let nData = processNewsData(news[0]);
                 let rData = processRecData(recData);
@@ -42,13 +42,27 @@ function startSearch() {
                 console.log(nData);
                 console.log(rData);
 
+                // Build/populate card here
+                txt = titleCase(txt);
+                $("#card-name").text(txt + ", " + stateInits);
+                $("#card-content").append($("<p>").text("Temperature: " + wData.temperature + " | Wind Speed: " + wData.windSpeed + " | Humidity: " + wData.humidity + " |"));
+                $("#card-content").append($("<hr>"))
+                for (var i = 0; i < nData.titles.length; i++) {
+                    $("#card-content").append($("<a>").attr("href", nData.links[i]).text(nData.titles[i]))
+                    $("#card-content").append($("<br>"))
+                }
+                $("#card-content").append($("<hr>"))
+                $("#card-content").append($("<p>").text("Recreation Areas Nearby:"))
+                  for (var i = 0; i < rData.names.length; i++){  
+                    $("#card-content").append($("<p>").text(rData.names[i] + " | " + rData.phones[i] + " |"))
+                }
 
+                $("#card-body").attr("style", "display: block");
             });
         }
     );
 
 }
-
 
 function getInitialsByState(state) {
     for (var initials in states) {
@@ -56,6 +70,14 @@ function getInitialsByState(state) {
     }
 }
 
+function titleCase (word) {
+    let firstLetter = word[0];
+    let capLetter = firstLetter.toUpperCase();
+    let wordEnd = word.slice(1).toLowerCase();
+    let capWord = capLetter + wordEnd;
+
+    return(capWord);
+}
 
 function genNewsAjax(city) {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
@@ -213,29 +235,13 @@ function processRecData(response) {
     }
 
     let recObj = {
-        names:recNameArr,
-        descriptions:recDescArr,
-        phones:recPhoneArr
+        names: recNameArr,
+        descriptions: recDescArr,
+        phones: recPhoneArr
     }
 
-    return(recObj);
+    return (recObj);
 
-}
-
-function getRestaurant() {
-    //API documentation - https://developers.zomato.com/documentation#!/restaurant/restaurant_0
-    const apiKey = "c856e1da1a9c81fb77e457de7e16c942";
-    const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
-    const locationURL = "https://developers.zomato.com/api/v2.1/cities?q=phoenix";
-    const locationDetailURL =
-        "https://developers.zomato.com/api/v2.1/location_details?entity_id=301&entity_type=city";
-
-    $.ajax({
-        url: corsBypassProxy + locationURL + apiKey,
-        method: "GET",
-    }).then(function (response) {
-        // console.log(locationURL);
-    });
 }
 
 searchBtn.on("click", function (e) {
