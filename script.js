@@ -2,7 +2,7 @@
 // 'states' and 'countries' constants prsent in 'lists.js'
 const input = $("#textarea2");
 const searchBtn = $("#search");
-const stateBtn = $("#dropdown1");
+const stateBtn = $("#dropdown1"); 
 
 $(document).ready(function () {
     populateDropdown();
@@ -247,5 +247,6 @@ function processRecData(response) {
 searchBtn.on("click", function (e) {
     e.preventDefault();
     startSearch(); 
-});
+}); 
 
+ 
