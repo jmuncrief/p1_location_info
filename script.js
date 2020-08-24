@@ -3,6 +3,7 @@
 const input = $("#textarea2");
 const searchBtn = $("#search");
 const stateBtn = $("#dropdown1");
+const clearBtn = $("#clear");
 
 $(document).ready(function () {
     populateDropdown();
@@ -10,6 +11,7 @@ $(document).ready(function () {
     $("select").formSelect();
 });
 
+// Fills select menu with state names from lists.js on page load
 function populateDropdown() {
     for (var prop in states) {
         let x = $("<option>").text(states[prop]);
@@ -38,21 +40,24 @@ function startSearch() {
                 let nData = processNewsData(news[0]);
                 let rData = processRecData(recData);
 
-                console.log(wData);
-                console.log(nData);
-                console.log(rData);
+                // Clears current search when starting new search
+                $("#card-body").attr("style", "display: none");
+                $("#card-name").empty();
+                $("#card-content").empty();
 
                 // Build/populate card here
                 txt = titleCase(txt);
                 $("#card-name").text(txt + ", " + stateInits);
+                $("#card-content").append($("<p>").text("Local Weather:"))
                 $("#card-content").append($("<p>").text("Temperature: " + wData.temperature + " | Wind Speed: " + wData.windSpeed + " | Humidity: " + wData.humidity + " |"));
                 $("#card-content").append($("<hr>"))
+                $("#card-content").append($("<p>").text("Relevant News:"))
                 for (var i = 0; i < nData.titles.length; i++) {
                     $("#card-content").append($("<a>").attr("href", nData.links[i]).text(nData.titles[i]))
                     $("#card-content").append($("<br>"))
                 }
                 $("#card-content").append($("<hr>"))
-                $("#card-content").append($("<p>").text("Recreation Areas Nearby:"))
+                $("#card-content").append($("<p>").text("Nearby Recreation Areas:"))
                   for (var i = 0; i < rData.names.length; i++){  
                     $("#card-content").append($("<p>").text(rData.names[i] + " | " + rData.phones[i] + " |"))
                 }
@@ -64,12 +69,14 @@ function startSearch() {
 
 }
 
+// Retrives initials (i.e. AZ, NM) for input from "State" field
 function getInitialsByState(state) {
     for (var initials in states) {
         if (states[initials] === state.toUpperCase()) return initials;
     }
 }
 
+// Ensures first letter of input-word is capitelized, and rest are lower-case
 function titleCase (word) {
     let firstLetter = word[0];
     let capLetter = firstLetter.toUpperCase();
@@ -79,6 +86,7 @@ function titleCase (word) {
     return(capWord);
 }
 
+// AJAX call to news API, returns AJAX response
 function genNewsAjax(city) {
     // API Documentation - https://www.notion.so/API-Documentation-e15cc61b6c1c4b0a904392f034779653
 
@@ -100,6 +108,7 @@ function genNewsAjax(city) {
     return $.ajax(settings);
 }
 
+// Extracts useful data from news API response
 function processNewsData(response) {
     const articles = response.articles;
 
@@ -122,7 +131,7 @@ function processNewsData(response) {
 
 }
 
-
+// AJAX call to weather API, returns AJAX response
 function genWeatherAjax(cityIn, state) {
 
     // API Documentation - https://openweathermap.org/current
@@ -160,6 +169,7 @@ function genWeatherAjax(cityIn, state) {
     });
 }
 
+// Extracts useful data from weather API response
 function processWeatherData(response) {
     const city = response.name;
     const country = response.sys.country;
@@ -189,7 +199,7 @@ function processWeatherData(response) {
     return weatherObj;
 }
 
-
+// 1st AJAX call to recreation.gov API, returns AJAX response of rec area IDs
 function genRecAjax(searchTerm) {
 
     // API Documentation - https://ridb.recreation.gov/docs
@@ -210,6 +220,7 @@ function genRecAjax(searchTerm) {
     });
 }
 
+// Rec area IDs passed into 2nd AJAX call to different end point to return useful data
 function genRecChildAjax(id) {
     const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
     const idURL1 = "https://ridb.recreation.gov/api/v1/recareas/";
@@ -222,6 +233,7 @@ function genRecChildAjax(id) {
     });
 }
 
+// Useful data extraced from 2nd AJAX call to recreation.gov API
 function processRecData(response) {
 
     let recNameArr = [];
@@ -244,24 +256,17 @@ function processRecData(response) {
 
 }
 
-function getRestaurant() {
-    //API documentation - https://developers.zomato.com/documentation#!/restaurant/restaurant_0
-    const apiKey = "c856e1da1a9c81fb77e457de7e16c942";
-    const corsBypassProxy = "https://cors-anywhere.herokuapp.com/";
-    const locationURL = "https://developers.zomato.com/api/v2.1/cities?q=phoenix";
-    const locationDetailURL =
-        "https://developers.zomato.com/api/v2.1/location_details?entity_id=301&entity_type=city";
-
-    $.ajax({
-        url: corsBypassProxy + locationURL + apiKey,
-        method: "GET",
-    }).then(function (response) {
-        // console.log(locationURL);
-    });
-}
-
+// Runs search on click
 searchBtn.on("click", function (e) {
     e.preventDefault();
     startSearch();
+});
+
+// Clears search results on click
+clearBtn.on("click", function (e) {
+    e.preventDefault();
+    $("#card-body").attr("style", "display: none");
+    $("#card-name").empty();
+    $("#card-content").empty();
 });
 
