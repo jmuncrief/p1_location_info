@@ -26,6 +26,11 @@ function startSearch() {
     let state = stateBtn.val();
     let stateInits = getInitialsByState(state);
 
+    // Clears current search when starting new search
+    $("#card-body").attr("style", "display: none");
+    $("#card-name").empty();
+    $("#card-content").empty();
+
     $.when(genWeatherAjax(txt, state), genNewsAjax(txt), genRecAjax(state)).then(
         function (weather, news, rec) {
             // Using spread operator to pass in arguments "...args"
@@ -39,11 +44,6 @@ function startSearch() {
                 let wData = processWeatherData(weather[0]);
                 let nData = processNewsData(news[0]);
                 let rData = processRecData(recData);
-
-                // Clears current search when starting new search
-                $("#card-body").attr("style", "display: none");
-                $("#card-name").empty();
-                $("#card-content").empty();
 
                 // Build/populate card here
                 txt = titleCase(txt);
